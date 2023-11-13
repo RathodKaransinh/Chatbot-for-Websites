@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>L D College of Engineering</title>
+  </head>{% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'chat1/style.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body>
+    <div id="content" style="margin: 0; padding: 0;">
+        <iframe width="100%" height="100%" frameborder="0" src="https://ldce.ac.in/"></iframe>
+    </div>
+  <div id="chatbot-icon">
+    <img src="{% static 'chat1/images/chatbot.png' %}" alt="Chatbot Icon">
+  </div>
+  <div id="chat-window">
+    <!-- Chat messages will be dynamically added here -->
+    <div class="chatbot-container">
+      <div class="chatbot-header">
+        <h1>ChatBot</h1>
+      </div>
+      <div class="chatbot-body" id="chatbox"></div>
+      <div class="chatbot-input">
+        <input type="text" id="input" placeholder="Enter your message..." required>
+        <button onclick="processInput()">Send</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+const chatbotIcon = document.getElementById('chatbot-icon');
+    const chatWindow = document.getElementById('chat-window');
+    function toggleChatWindow() {
+      chatWindow.classList.toggle('open');
+      if (chatWindow.style.display === 'none') {
+        chatWindow.style.display = 'block';
+      } else {
+        chatWindow.style.display = 'none';
+      }
+    }
+    // Toggle chat window visibility when the chatbot icon is clicked
+    chatbotIcon.addEventListener('click', toggleChatWindow);
+    function displayMessage(sender, message) {
+        var chatbox = document.getElementById("chatbox");
+      var newMessage = document.createElement("div");
+      newMessage.classList.add("chatbot-message");
+      newMessage.classList.add("user-message")
+      newMessage.innerHTML = "<a href=" + message + " target='_blank'>"+message+"</a>";
+      if(message == "How can i help you?"){
+        newMessage.innerHTML = "<a href=\"\" target='_blank' style=\"pointer-events: none;\">"+message+"</a>";
+      }
+      if (sender === "You") {
+        newMessage.innerHTML = "<p>" + message + "</p>";
+        newMessage.classList.add("user-message");
+      }  
+      chatbox.appendChild(newMessage);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    displayMessage('',"How can i help you?");
+
+    function processInput() {
+      var input = document.getElementById("input");
+      var userMessage = input.value;
+
+      displayMessage("You", userMessage);
+
+      $.get('/getResponse',{userMessage:userMessage}).done(function(data){
+                displayMessage('Bot',data);
+            })
+      // TODO: Implement your bot's response generation logic here
+
+      input.value = "";
+    }
+
+    document.getElementById("input").addEventListener("keydown", function(e) {
+      if (e.keyCode === 13) {
+        processInput();
+    }
+});
+  </script>
+</body>
+</html>
