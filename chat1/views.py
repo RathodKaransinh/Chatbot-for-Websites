@@ -17,16 +17,7 @@ def find_list():
         urls_list.append(line[0])
         urls_keyword.append(line[1])
     f.close()
-    # f = open("E:/Django projects/all1.txt",'r')
-    # lines = f.readlines()
-    # urls_list1 = []
-    # urls_keyword1 = []
-    # for line in lines:
-    #     line = line.replace('\n','')
-    #     line = line.split(',')
-    #     urls_list1.append(line[0])
-    #     urls_keyword1.append(line[1])
-    # f.close()
+    
     return urls_list, urls_keyword
 
 def find_link(query):
@@ -49,13 +40,6 @@ def find_link(query):
             max = cnt
             ans = j
         j = j+1
-    
-    # j = 0  
-    # for i in urls_keyword1:
-    #     for word in tokens:
-    #         if word in i:
-    #             return urls_list1[j]
-    #     j = j+1
 
     if (max==0):
         return "Nothing found"
@@ -63,10 +47,6 @@ def find_link(query):
         return urls_list[ans]
 
 def index(request):
-    return render(request, "chat1/index3.html")
-
-def specific(request):
-    # return HttpResponse('This is specific')
     return render(request, "chat1/index3.html")
 
 def getResponse(request):
