@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
-from nltk.tokenize import word_tokenize
 
 def find_list():
-    f = open("E:/Django projects/all.txt",'r')
+    f = open("chat1/static/chat1/text/all.txt",'r')
     lines = f.readlines()
     urls_list = []
     urls_keyword = []
@@ -14,8 +13,9 @@ def find_list():
         i += 1
         line = line.replace('\n','')
         line = line.split(',')
-        urls_list.append(line[0])
-        urls_keyword.append(line[1])
+        if(len(line) >= 2):
+            urls_list.append(line[0])
+            urls_keyword.append(line[1])
     f.close()
     
     return urls_list, urls_keyword

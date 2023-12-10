@@ -49,7 +49,10 @@ const chatbotIcon = document.getElementById('chatbot-icon');
       newMessage.classList.add("user-message")
       newMessage.innerHTML = "<a href=" + message + " target='_blank'>"+message+"</a>";
       if(message == "How can i help you?"){
-        newMessage.innerHTML = "<a href=\"\" target='_blank' style=\"pointer-events: none;\">"+message+"</a>";
+        newMessage.innerHTML = "<a href=\"\" target='_blank' style=\"pointer-events: none; color: black;\">"+message+"</a>";
+      }
+      if(message == "Hint: Enter a keyword to get a link..."){
+        newMessage.innerHTML = "<a href=\"\" target='_blank' style=\"pointer-events: none; color: black;\">"+message+"</a>";
       }
       if (sender === "You") {
         newMessage.innerHTML = "<p>" + message + "</p>";
@@ -60,6 +63,7 @@ const chatbotIcon = document.getElementById('chatbot-icon');
     }
 
     displayMessage('',"How can i help you?");
+    displayMessage('',"Hint: Enter a keyword to get a link...");
 
     function processInput() {
       var input = document.getElementById("input");
